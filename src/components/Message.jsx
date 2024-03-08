@@ -1,20 +1,20 @@
 export default function Message({ typeUser, children }) {
-  const backgroundBot = "bg-primary";
-  const backgroundUser = "bg-[#cccc]";
+  const backgroundUser = "bg-primary";
+  const backgroundBot = "bg-[#cccc]";
 
-  const textColorBot = "text-secondary";
-  const textColorUser = "text-[#000000]";
+  const textColorUser = "text-secondary";
+  const textColorBot = "text-[#000000]";
 
   return (
     <div
       className={`flex select-none  ${
-        typeUser === "bot" ? "justify-end" : "justify-start"
+        typeUser === "bot" ? "justify-start" :  "justify-end"
       }`}
     >
       <p
         className={`flex ${
           typeUser === "bot" ? backgroundBot : backgroundUser
-        } py-2 px-2 rounded-md opacity-80 ${
+        } py-2 px-2 rounded-md opacity-80 text-wrap ${
           typeUser === "bot" ? textColorBot : textColorUser
         }`}
       >

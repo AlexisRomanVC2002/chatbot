@@ -1,18 +1,16 @@
-import useChat from "../hooks/useChat";
 import { ExitIcon, SendIcon } from "./Icons";
 import Message from "./Message";
 
-function Chat() {
-  const [messages, prompUser, handdleForm, handlePrompUser] = useChat();
+function Chat({messages, prompUser, handdleForm, handlePrompUser, openedChat, handleChat}) {
 
   return (
     <aside
       role="dialog"
-      className="w-full flex flex-col h-[480px] md:w-[50%] lg:w-[30%] rounded-xl shadow-xl"
+      className={`${openedChat ? "scale-100 translate-x-0 translate-y-0" : "scale-0 translate-x-[50%] translate-y-full"} transition-all w-full flex flex-col h-[480px] md:w-[50%] lg:w-[30%] rounded-xl shadow-xl`}
     >
       <header className="flex justify-between bg-primary text-secondary p-2 rounded-xl">
-        <p className="font-bold ml-2">CHATBOT 🤖</p>
-        <button>
+        <p className="font-bold ml-2 select-none">CHATBOT 🤖</p>
+        <button onClick={handleChat}>
           <ExitIcon />
         </button>
       </header>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { sendPromp } from "../services/api-openai";
+import { sendPromp, sendPrompWithoutConnection } from "../services/api-openai";
 
 function useChat() {
   const [messages, setMessages] = useState([
@@ -11,6 +11,12 @@ function useChat() {
   ]);
 
   const [prompUser, setPrompUser] = useState("");
+
+  const [openedChat, setOpenedChat] = useState(true);
+
+  const handleChat = () => {
+    setOpenedChat(!openedChat);
+  }
 
   const handdleForm = async (e) => {
     e.preventDefault();
@@ -29,7 +35,7 @@ function useChat() {
     // Clean inputs
     cleanInputs();
 
-    const responseToPromp = await sendPromp(prompUser);
+    const responseToPromp = await sendPrompWithoutConnection(prompUser);
 
     const botMessage = {
         typeUser: "bot",
@@ -47,7 +53,7 @@ function useChat() {
     setPrompUser("");
   };
 
-  return [messages, prompUser, handdleForm, handlePrompUser];
+  return {messages, prompUser, handdleForm, handlePrompUser, openedChat, handleChat};
 }
 
 export default useChat;
