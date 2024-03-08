@@ -1,9 +1,17 @@
 import OpenAI from "openai";
 
 const API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
-const openai = new OpenAI({ apiKey: API_KEY, dangerouslyAllowBrowser: true });
+let openai;
+
+if (API_KEY) {
+  openai = new OpenAI({ apiKey: API_KEY, dangerouslyAllowBrowser: true });
+}
 
 export const sendPromp = async (prompUser) => {
+  if (!API_KEY) {
+    return `(Sin Conexion) -> El promp que recibí fue el siguiente: "${prompUser}"`;
+  }
+
   const completions = await openai.chat.completions.create({
     messages: [
       {
@@ -56,11 +64,6 @@ export const sendPromp = async (prompUser) => {
 
   return "No puedo entender lo que me estas pidiendo, intenta con otra pregunta nuevamente, lo siento 😪";
 };
-
-// This function is only for test when I haven't internet connection.
-export const sendPrompWithoutConnection = async (prompUser) => {
-  return `El promp que recibí fue el siguiente: "${prompUser}"`
-}
 
 const getInfoAboutHotel = () => {
   return "El Hotel Mio es un lugar excepcional ubicado en Puerto Vallarta, a solo 3 minutos a pie de la Playa de Villa del Mar. Como hotel exclusivo para adultos, ofrecemos habitaciones de 5 estrellas con aire acondicionado, TV de pantalla plana, balcón privado y baño completo con ducha. Además, disfruta de nuestra piscina al aire libre, estacionamiento gratuito, wifi, cafetería y más. 😎";

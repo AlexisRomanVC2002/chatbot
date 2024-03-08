@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { sendPromp, sendPrompWithoutConnection } from "../services/api-openai";
+import { sendPromp } from "../services/api-openai";
 
 function useChat() {
   const [messages, setMessages] = useState([
@@ -35,7 +35,7 @@ function useChat() {
     // Clean inputs
     cleanInputs();
 
-    const responseToPromp = await sendPrompWithoutConnection(prompUser);
+    const responseToPromp = await sendPromp(prompUser);
 
     const botMessage = {
         typeUser: "bot",
